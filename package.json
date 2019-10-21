@@ -1,0 +1,141 @@
+{
+    "name": "lapernih",
+    "version": "0.0.1",
+    "main": "index.js",
+    "private": true,
+    "engines": {
+        "node": ">=8.10.0",
+        "npm": ">=5.6.0",
+        "yarn": ">=1.5.1"
+    },
+    "scripts": {
+        "start": "gulp serve",
+        "start:debug": "cross-env DEBUG=lapernih:* yarn start",
+        "build": "gulp",
+        "copy": "gulp copy",
+        "cm": "npx git-cz",
+        "babel": "gulp babel",
+        "lint": "esw *.js server config --color",
+        "lint:watch": "yarn lint -- --watch",
+        "beautify": "es-beautifier -u -c .eslintrc.js *.js server config",
+        "precommit": "yarn lint && yarn test",
+        "test": "cross-env NODE_ENV=test ./node_modules/.bin/jest server/tests",
+        "test:watch": "jest --watch",
+        "test:coverage": "cross-env NODE_ENV=test ./node_modules/.bin/istanbul cover _jest -- --ui bdd --reporter spec --colors --compilers js:babel-core/register server/tests --recursive",
+        "test:check-coverage": "yarn test:coverage && istanbul check-coverage",
+        "report-coverage": "coveralls < ./coverage/lcov.info"
+    },
+    "keywords": [
+        "express",
+        "node",
+        "node.js",
+        "mongodb",
+        "mongoose",
+        "es6",
+        "jest",
+        "istanbul",
+        "REST",
+        "API",
+        "boilerplate"
+    ],
+    "jest": {
+        "automock": false,
+        "bail": false,
+        "verbose": false,
+        "setupFiles": [],
+        "testMatch": [
+            "**/Tests/**/*.js",
+            "**/?(*.)(spec|test|integration).js?(x)"
+        ],
+        "testPathIgnorePatterns": [
+            "/node_modules/",
+            "/coverage/",
+            "/dist/"
+        ],
+        "testEnvironment": "node"
+    },
+    "dependencies": {
+        "@babel/polyfill": "^7.6.0",
+        "@hapi/joi": "^16.1.7",
+        "babel-cli": "^6.26.0",
+        "bluebird": "3.7.1",
+        "body-parser": "1.19.0",
+        "compression": "1.7.4",
+        "cookie-parser": "1.4.4",
+        "cors": "2.8.5",
+        "debug": "^4.1.1",
+        "del": "^5.1.0",
+        "dotenv": "^8.2.0",
+        "express": "4.17.1",
+        "express-jwt": "5.3.1",
+        "express-validator": "^6.2.0",
+        "express-winston": "4.0.1",
+        "gulp": "4.0.2",
+        "gulp-load-plugins": "^2.0.1",
+        "helmet": "3.21.1",
+        "http-status": "^1.4.0",
+        "jsonwebtoken": "8.5.1",
+        "lodash": "4.17.15",
+        "method-override": "^3.0.0",
+        "morgan": "1.9.1",
+        "pg": "^7.12.1",
+        "pg-hstore": "^2.3.3",
+        "run-sequence": "^2.2.1",
+        "sequelize": "^5.21.1",
+        "supertest": "4.0.2",
+        "supertest-as-promised": "4.0.2",
+        "winston": "3.2.1"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.6.4",
+        "@babel/core": "^7.6.4",
+        "@babel/node": "^7.6.3",
+        "@babel/preset-env": "^7.6.3",
+        "@babel/register": "^7.6.2",
+        "commitizen": "^4.0.3",
+        "coveralls": "^3.0.7",
+        "cross-env": "6.0.3",
+        "cz-conventional-changelog": "^3.0.2",
+        "eslint": "^6.5.1",
+        "eslint-config-airbnb": "^18.0.1",
+        "eslint-config-airbnb-base": "14.0.0",
+        "eslint-plugin-import": "^2.18.2",
+        "eslint-plugin-jsx-a11y": "^6.2.3",
+        "eslint-plugin-react": "^7.16.0",
+        "eslint-watch": "6.0.1",
+        "gulp-babel": "8.0.0",
+        "gulp-concat": "^2.6.1",
+        "gulp-jshint": "^2.1.0",
+        "gulp-newer": "^1.4.0",
+        "gulp-nodemon": "^2.4.2",
+        "gulp-sourcemaps": "^2.6.5",
+        "husky": "^3.0.9",
+        "istanbul": "1.1.0-alpha.1",
+        "jest": "24.9.0",
+        "jsdom": "15.2.0",
+        "jshint": "^2.10.2"
+    },
+    "validate-commit-msg": {
+        "types": [
+            "feat",
+            "fix",
+            "docs",
+            "style",
+            "refactor",
+            "perf",
+            "test",
+            "chore",
+            "revert"
+        ],
+        "warnOnFail": false,
+        "maxSubjectLength": 100,
+        "subjectPattern": "^[A-Z]+-[0-9]+ - .*",
+        "subjectPatternErrorMsg": "Subject must be in format 'CMS-123 - Commit message'",
+        "helpMessage": ""
+    },
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-conventional-changelog"
+        }
+    }
+}
