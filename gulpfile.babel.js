@@ -7,7 +7,10 @@ const plugins = require('gulp-load-plugins')();
 
 const paths = {
     js: ['./**/*.js', '!dist/**', '!node_modules/**', '!coverage/**'],
-    nonJs: ['./package.json', './.gitignore', './.env'],
+    nonJs: ['./package.json', './.gitignore', './.env', './.sequelizerc'],
+    resources: ['./server/resources/**'],
+    masterdata: ['./server/masterdata/**'],
+    locales: ['./locales/**'],
     tests: './server/tests/*.js',
 };
 
@@ -22,6 +25,15 @@ gulp.task('copy', (done) => {
     gulp.src(paths.nonJs)
         .pipe(plugins.newer('dist'))
         .pipe(gulp.dest('dist'));
+    gulp.src(paths.resources)
+        .pipe(plugins.newer('dist/server/resources'))
+        .pipe(gulp.dest('dist/server/resources'));
+    gulp.src(paths.masterdata)
+        .pipe(plugins.newer('dist/server/masterdata'))
+        .pipe(gulp.dest('dist/server/masterdata'));
+    gulp.src(paths.locales)
+        .pipe(plugins.newer('dist/locales'))
+        .pipe(gulp.dest('dist/locales'));
     done();
 });
 
@@ -42,7 +54,7 @@ gulp.task('babel', (done) => {
 });
 
 // Start server with restart on file changes
-gulp.task('nodemon', gulp.series(gulp.series('copy', 'babel'), (done) => {
+gulp.task('nodemon', gulp.series((done) => {
     plugins.nodemon({
         script: path.join('dist', 'index.js'),
         ext: 'js',

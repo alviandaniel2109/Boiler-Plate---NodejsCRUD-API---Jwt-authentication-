@@ -1,0 +1,8 @@
+{
+  "error": {
+    "not_found": "{{variable, uppercase}} not found"
+  },
+  "variable": {
+    "user": "user"
+  }
+}

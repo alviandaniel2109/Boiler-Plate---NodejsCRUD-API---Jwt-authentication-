@@ -47,7 +47,7 @@ Start server:
 yarn start
 
 # Selectively set DEBUG env var to get logs
-DEBUG=lapernih:* yarn start
+DEBUG=boilerplate:* yarn start
 ```
 
 Tests:

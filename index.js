@@ -3,7 +3,7 @@ import app from './config/express';
 /* eslint-disable no-unused-vars */
 import '@babel/polyfill';
 
-const debug = require('debug')('lapernih:index');
+const debug = require('debug')('boilerplate:index');
 /* eslint-enable no-unused-vars */
 
 // make bluebird default Promise

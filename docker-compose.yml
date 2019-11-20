@@ -29,7 +29,7 @@ services:
       - PG_HOST=postgres
       - PG_USER=api
       - PG_PASSWD=boilerplate
-      - DEBUG=lapernih:*
+      - DEBUG=boilerplate:*
 
     # Link to containers in another service.
     # Links also express dependency between services in the same way as depends_on,

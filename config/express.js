@@ -8,11 +8,26 @@ import cors from 'cors';
 import httpStatus from 'http-status';
 import expressWinston from 'express-winston';
 import helmet from 'helmet';
+import i18next from 'i18next';
+import i18nextMiddleware from 'i18next-express-middleware';
+import Backend from 'i18next-node-fs-backend';
+import moment from 'moment';
 import winstonInstance from './winston';
 import routes from '../server/routes/index.route';
 import config from './config';
 
+const sentry = require('@sentry/node');
+
+require('dotenv').config();
+
 const app = express();
+
+sentry.init({ dsn: process.env.SENTRY_URL });
+
+app.use(sentry.Handlers.requestHandler());
+app.use(sentry.Handlers.errorHandler());
+
+app.sentry = sentry;
 
 if (config.env === 'development') {
     app.use(logger('dev'));
@@ -29,20 +44,36 @@ app.use(methodOverride());
 // secure apps by setting various HTTP headers
 app.use(helmet());
 
+i18next
+    .use(Backend)
+    .use(i18nextMiddleware.LanguageDetector)
+    .init({
+        backend: {
+            loadPath: `${__dirname}/../locales/{{lng}}/{{ns}}.json`,
+            addPath: `${__dirname}/../locales/{{lng}}/{{ns}}.missing.json`,
+        },
+        fallbackLng: 'id',
+        preload: ['en', 'id'],
+        saveMissing: true,
+        interpolation: {
+            format: (value, format) => {
+                if (format === 'uppercase') return value.charAt(0).toUpperCase() + value.slice(1);
+                return value;
+            },
+        },
+    });
+
+app.use(i18nextMiddleware.handle(i18next));
+
 // enable CORS - Cross Origin Resource Sharing
 app.use(cors());
 
-// enable detailed API logging in dev env
-if (config.env === 'development') {
-    expressWinston.requestWhitelist.push('body');
-    expressWinston.responseWhitelist.push('body');
-    app.use(expressWinston.logger({
-        winstonInstance,
-        meta: true, // optional: log meta data about request (defaults to true)
-        msg: 'HTTP {{req.method}} {{req.url}} {{res.statusCode}} {{res.responseTime}}ms',
-        colorStatus: true, // Color the status code (default green, 3XX cyan, 4XX yellow, 5XX red).
-    }));
-}
+expressWinston.requestWhitelist.push('body');
+expressWinston.responseWhitelist.push('body');
+app.use(expressWinston.logger({
+    winstonInstance: winstonInstance.mongoLogger,
+    msg: `{{req.method}} {{req.url}} {{res.statusCode}} {{res.responseTime}}ms ${moment().tz('Asia/Jakarta').format()}`,
+}));
 
 // Get API Version from .env (or else assume 1.0)
 const baseUrl = `/api/v${config.apiVersion}`;
@@ -70,7 +101,7 @@ app.use((req, res, next) => next(res.status(404).json({
 // log error in winston transports except when executing test suite
 if (config.env !== 'test') {
     app.use(expressWinston.errorLogger({
-        winstonInstance,
+        winstonInstance: winstonInstance.mongoLogger,
     }));
 }
 

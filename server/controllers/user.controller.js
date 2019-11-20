@@ -12,7 +12,11 @@ function load(req, res, next, id) {
     User.findByPk(id)
         .then((user) => {
             if (!user) {
-                const error = { message: 'User does not exist' };
+                const error = {
+                    message: req.t('error.not_found', {
+                        variable: req.t('variable.user'),
+                    }),
+                };
                 setContent(404, error);
                 return res.status(404).json(getContentFail(error));
             }
