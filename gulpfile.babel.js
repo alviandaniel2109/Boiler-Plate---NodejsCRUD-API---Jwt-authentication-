@@ -21,25 +21,40 @@ gulp.task('clean', (done) => {
 });
 
 // Copy non-js files to dist
-gulp.task('copy', (done) => {
-    gulp.src(paths.nonJs)
+gulp.task('copy-non-js', () => {
+    const stream = gulp.src(paths.nonJs)
         .pipe(plugins.newer('dist'))
         .pipe(gulp.dest('dist'));
-    gulp.src(paths.resources)
+    return stream;
+});
+
+// Copy non-js files to dist
+gulp.task('copy-resources', () => {
+    const stream = gulp.src(paths.nonJs)
         .pipe(plugins.newer('dist/server/resources'))
         .pipe(gulp.dest('dist/server/resources'));
-    gulp.src(paths.masterdata)
+    return stream;
+});
+
+// Copy non-js files to dist
+gulp.task('copy-masterdata', () => {
+    const stream = gulp.src(paths.nonJs)
         .pipe(plugins.newer('dist/server/masterdata'))
         .pipe(gulp.dest('dist/server/masterdata'));
-    gulp.src(paths.locales)
+    return stream;
+});
+
+// Copy non-js files to dist
+gulp.task('copy-locales', () => {
+    const stream = gulp.src(paths.nonJs)
         .pipe(plugins.newer('dist/locales'))
         .pipe(gulp.dest('dist/locales'));
-    done();
+    return stream;
 });
 
 // Compile ES6 to ES5 and copy to dist
-gulp.task('babel', (done) => {
-    gulp.src([...paths.js, '!gulpfile.babel.js'], { base: '.' })
+gulp.task('babel', () => {
+    const stream = gulp.src([...paths.js, '!gulpfile.babel.js'], { base: '.' })
         .pipe(plugins.newer('dist'))
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.babel())
@@ -50,7 +65,7 @@ gulp.task('babel', (done) => {
             },
         }))
         .pipe(gulp.dest('dist'));
-    done();
+    return stream;
 });
 
 // Start server with restart on file changes
@@ -59,16 +74,16 @@ gulp.task('nodemon', gulp.series((done) => {
         script: path.join('dist', 'index.js'),
         ext: 'js',
         ignore: ['node_modules/**/*.js', 'dist/**/*.js'],
-        tasks: ['copy', 'babel'],
+        tasks: ['copy-non-js', 'copy-resources', 'copy-masterdata', 'copy-locales', 'babel'],
     });
     done();
 }));
 
 // gulp serve for development
-gulp.task('serve', gulp.series('clean', 'nodemon'));
+gulp.task('serve', gulp.series('clean', 'copy-non-js', 'copy-resources', 'copy-masterdata', 'copy-locales', 'babel', 'nodemon'));
 
 // default task: clean dist, compile js files and copy non-js files.
 gulp.task('default', gulp.series('clean'), (done) => {
-    runSequence(['copy', 'babel']);
+    runSequence(['copy-non-js', 'copy-resources', 'copy-masterdata', 'copy-locales', 'babel']);
     done();
 });

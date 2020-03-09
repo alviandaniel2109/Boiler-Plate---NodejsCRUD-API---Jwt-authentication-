@@ -1,4 +1,4 @@
-FROM node:10.15.3-alpine
+FROM node:12.16.1-alpine3.11
 WORKDIR /app
 COPY package.json ./
 COPY . /app
@@ -8,7 +8,9 @@ RUN apk --no-cache --virtual build-dependencies add \
     python \
     make \
     g++ \
+    && apk add git \
     && npm install \
     && apk del build-dependencies
 RUN apk add ffmpeg
-CMD [ "node", "./bin/www"]
+CMD [ "node", "index.js"]
+EXPOSE 15555
