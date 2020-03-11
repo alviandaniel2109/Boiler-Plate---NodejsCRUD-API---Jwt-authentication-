@@ -58,6 +58,7 @@
         "@hapi/joi": "^17.1.0",
         "@sentry/node": "^5.13.2",
         "axios": "^0.19.2",
+        "bcrypt": "^4.0.1",
         "body-parser": "1.19.0",
         "compression": "1.7.4",
         "cookie-parser": "1.4.4",
@@ -138,6 +139,11 @@
         "subjectPattern": "^[A-Z]+-[0-9]+ - .*",
         "subjectPatternErrorMsg": "Subject must be in format 'CMS-123 - Commit message'",
         "helpMessage": ""
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "esw *.js server config --color && jest"
+        }
     },
     "config": {
         "commitizen": {

@@ -7,10 +7,10 @@ const plugins = require('gulp-load-plugins')();
 
 const paths = {
     js: ['./**/*.js', '!dist/**', '!node_modules/**', '!coverage/**'],
-    nonJs: ['./package.json', './.gitignore', './.env', './.sequelizerc'],
+    nonJs: ['./package.json', './.gitignore', './.sequelizerc'],
     resources: ['./server/resources/**'],
     masterdata: ['./server/masterdata/**'],
-    locales: ['./locales/**'],
+    locales: ['./server/locales/**'],
     tests: './server/tests/*.js',
 };
 
@@ -30,7 +30,7 @@ gulp.task('copy-non-js', () => {
 
 // Copy non-js files to dist
 gulp.task('copy-resources', () => {
-    const stream = gulp.src(paths.nonJs)
+    const stream = gulp.src(paths.resources)
         .pipe(plugins.newer('dist/server/resources'))
         .pipe(gulp.dest('dist/server/resources'));
     return stream;
@@ -38,7 +38,7 @@ gulp.task('copy-resources', () => {
 
 // Copy non-js files to dist
 gulp.task('copy-masterdata', () => {
-    const stream = gulp.src(paths.nonJs)
+    const stream = gulp.src(paths.masterdata)
         .pipe(plugins.newer('dist/server/masterdata'))
         .pipe(gulp.dest('dist/server/masterdata'));
     return stream;
@@ -46,9 +46,9 @@ gulp.task('copy-masterdata', () => {
 
 // Copy non-js files to dist
 gulp.task('copy-locales', () => {
-    const stream = gulp.src(paths.nonJs)
-        .pipe(plugins.newer('dist/locales'))
-        .pipe(gulp.dest('dist/locales'));
+    const stream = gulp.src(paths.locales)
+        .pipe(plugins.newer('dist/server/locales'))
+        .pipe(gulp.dest('dist/server/locales'));
     return stream;
 });
 
