@@ -19,7 +19,7 @@ const getContentSuccess = () => content;
 
 const getContentFail = (error) => {
     // eslint-disable-next-line no-console
-    console.log('error', error);
+    console.log('\x1b[31m', 'Error: ', error);
     return content;
 };
 

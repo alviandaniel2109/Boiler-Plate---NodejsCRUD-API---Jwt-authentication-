@@ -1,8 +1,35 @@
 {
-  "error": {
-    "not_found": "{{variable, uppercase}} not found"
-  },
-  "variable": {
-    "user": "user"
-  }
+    "array": {
+        "email_password": [
+            "email",
+            "password"
+        ]
+    },
+    "error": {
+        "incorrect": "incorrect {{variable}}",
+        "not_found": "{{variable}} not found"
+    },
+    "misc": {
+        "or": "or"
+    },
+    "validation": {
+        "exist": "{{variable, uppercase}} with {{key}} '{{value}}' exist",
+        "is_boolean": "{{variable, uppercase}} must be boolean",
+        "is_email": "{{variable, uppercase}} must be in correct email format (email@domain.com)",
+        "is_numeric": "{{variable, uppercase}} must be numeric",
+        "not_empty": "{{variable, uppercase}} must not be empty",
+        "password_format": "Password must contain at least 1 lowercase alphabetical character, at least 1 uppercase alphabetical character, at least 1 numeric character, at least 1 special character (!@#$%^&), and must be eight characters or longer",
+        "password_matching": "Password does not match with Password Confirmation"
+    },
+    "variable": {
+        "active": "active",
+        "admin": "admin",
+        "email": "email",
+        "model": "model",
+        "name": "name",
+        "password": "password",
+        "role": "role",
+        "role_id": "role id",
+        "username": "username"
+    }
 }

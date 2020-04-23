@@ -1,8 +1,35 @@
 {
-  "error": {
-    "not_found": "{{variable, uppercase}} tidak ditemukan"
-  },
-  "variable": {
-    "user": "pengguna"
-  }
+    "array": {
+        "email_password": [
+            "email",
+            "password"
+        ]
+    },
+    "error": {
+        "incorrect": "{{variable}} salah",
+        "not_found": "{{variable}} tidak ditemukan"
+    },
+    "misc": {
+        "or": "atau"
+    },
+    "validation": {
+        "exist": "{{variable, uppercase}} dengan {{key}} '{{value}}' sudah ada",
+        "is_boolean": "{{variable, uppercase}} harus berupa boolean",
+        "is_email": "{{variable, uppercase}} harus berupa format email yang benar (email@domain.com)",
+        "is_numeric": "{{variable, uppercase}} harus berupa angka",
+        "not_empty": "{{variable, uppercase}} tidak boleh kosong",
+        "password_format": "Password harus memiliki paling sedikit 1 huruf kecil, 1 huruf besar, 1 angka, 1 karakter spesial (!@#$%^&), dan harus berupa 8 karakter atau lebih",
+        "password_matching": "Password tidak sesuai dengan Password Confirmation"
+    },
+    "variable": {
+        "active": "active",
+        "admin": "admin",
+        "email": "email",
+        "model": "model",
+        "name": "nama",
+        "password": "password",
+        "role": "role",
+        "role_id": "role id",
+        "username": "username"
+    }
 }

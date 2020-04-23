@@ -1,23 +1,26 @@
 module.exports = {
-    up: (queryInterface, Sequelize) => queryInterface.createTable('Users', {
+    up: (queryInterface, Sequelize) => queryInterface.createTable('Models', {
         id: {
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
             type: Sequelize.INTEGER,
         },
-        username: {
+        name: {
+            allowNull: false,
             type: Sequelize.STRING,
         },
-        createdAt: {
+        created_at: {
             allowNull: false,
             type: Sequelize.DATE,
         },
-        updatedAt: {
-            allowNull: false,
+        updated_at: {
+            type: Sequelize.DATE,
+        },
+        deleted_at: {
             type: Sequelize.DATE,
         },
     }),
     // eslint-disable-next-line no-unused-vars
-    down: (queryInterface, Sequelize) => queryInterface.dropTable('Users'),
+    down: (queryInterface, Sequelize) => queryInterface.dropTable('Models'),
 };

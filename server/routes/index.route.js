@@ -1,18 +1,17 @@
 import express from 'express';
-import userRoutes from './user.route';
-import authRoutes from './auth.route';
+import adminCmsRoutes from './admin-cms/index.route';
+import appRoutes from './app/index.route';
+import memberCmsRoutes from './member-cms/index.route';
 
-const router = express.Router(); // eslint-disable-line new-cap
+const router = express.Router();
 
-/** GET /health-check - Check service health */
-router.get('/health-check', (req, res) => {
-    res.send('OK');
-});
+// mount admin-cms routes at /admin-cms
+router.use('/admin-cms', adminCmsRoutes);
 
-// mount user routes at /users
-router.use('/users', userRoutes);
+// mount app routes at /app
+router.use('/app', appRoutes);
 
-// mount auth routes at /auth
-router.use('/auth', authRoutes);
+// mount member-cms routes at /member-cms
+router.use('/member-cms', memberCmsRoutes);
 
 export default router;

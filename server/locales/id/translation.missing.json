@@ -1,0 +1,8 @@
+{
+  "variable": {
+    "password_confirmation": "variable.password_confirmation"
+  },
+  "validation": {
+    "not_found": "validation.not_found"
+  }
+}
