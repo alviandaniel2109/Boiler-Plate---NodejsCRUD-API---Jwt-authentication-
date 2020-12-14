@@ -117,7 +117,6 @@
         "gulp-newer": "^1.4.0",
         "gulp-nodemon": "^2.5.0",
         "gulp-sourcemaps": "^2.6.5",
-        "husky": "^4.2.5",
         "jest": "26.1.0",
         "jsdom": "16.2.2",
         "jshint": "^2.11.1"
@@ -142,7 +141,8 @@
     },
     "husky": {
         "hooks": {
-            "pre-commit": "esw *.js server config --color && jest"
+            "pre-commit": "npm test",
+            "pre-push": "npm test"
         }
     },
     "config": {

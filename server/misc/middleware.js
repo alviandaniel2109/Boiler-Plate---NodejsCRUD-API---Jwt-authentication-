@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 const { setContent, getContentFail } = require('../response/response');
+const { ConsoleTransportOptions } = require('winston/lib/winston/transports');
 const config = require('../../config/config').default;
 
 const checkToken = (req, res, next) => {
@@ -37,6 +38,7 @@ const checkUserType = (req, res, next, types) => {
 };
 
 const checkValidation = (req, res, next) => {
+    // console.log(checkValidation)
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         const errorMessage = [];
